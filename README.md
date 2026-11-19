@@ -1,8 +1,8 @@
 # Learning-Based Camera-Radar Data Fusion and 3D Oriented Bounding Box Estimation
 
+**Course:** 3D Perception & Learning-Based Data Fusion (A.Y. 2026/2027) - University of Parma  
 **Student:** Arashpreet Singh  
-**Course:** 3D Perception & Learning-Based Data Fusion (A.A. 2026/2027) — University of Parma  
-**Dataset:** nuScenes v1.0-mini (`CAM_FRONT` + `RADAR_FRONT` vs. 3D LiDAR Ground Truth)  
+**Dataset:** [nuScenes v1.0-mini](https://www.nuscenes.org/nuscenes) (`CAM_FRONT` + `RADAR_FRONT` + 3D LiDAR Ground Truth)
 **Media, Demo Videos & Outputs (OneDrive):** [Open OneDrive Folder](https://univpr-my.sharepoint.com/:f:/g/personal/arashpreet_singh_studenti_unipr_it/IgAP8D1HTET2QIrnTexATodmAd8hQxoXYwRSKbClBzFQRrE?e=RjOth6)
 
 ---
