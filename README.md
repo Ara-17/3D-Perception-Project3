@@ -2,7 +2,8 @@
 
 **Student:** Arashpreet Singh  
 **Course:** 3D Perception & Learning-Based Data Fusion (A.A. 2026/2027) — University of Parma  
-**Dataset:** nuScenes v1.0-mini (`CAM_FRONT` + `RADAR_FRONT` vs. 3D LiDAR Ground Truth)
+**Dataset:** nuScenes v1.0-mini (`CAM_FRONT` + `RADAR_FRONT` vs. 3D LiDAR Ground Truth)  
+**Media, Demo Videos & Outputs (OneDrive):** [Open OneDrive Folder](https://univpr-my.sharepoint.com/:f:/g/personal/arashpreet_singh_studenti_unipr_it/IgAP8D1HTET2QIrnTexATodmAd8hQxoXYwRSKbClBzFQRrE?e=RjOth6)
 
 ---
 
@@ -11,6 +12,7 @@
 This repository contains the implementation of **Project 3**, developed as a direct continuation of Project 1 (Monocular Camera 3D Perception) and Project 2 (Rule-Based Camera + Doppler Radar Fusion).
 
 In Project 2, combining YOLOv8m, MiDaS (`DPT_Hybrid`), and 77 GHz Doppler Radar measurements through the Hungarian Algorithm and a 4D Linear Kalman Filter reduced the global 3D distance RMSE from $6.92\text{ m}$ (Project 1) to $3.94\text{ m}$ ($2.19\text{ m}$ on targets with an active Radar lock). However, that traditional rule-based pipeline had three practical limitations:
+
 1. **Missing Radar reflections on $53.2\%$ of road objects:** Non-metallic targets such as pedestrians ($85.6\%$ missing Radar) and bicycles ($78.9\%$ missing Radar) have a very low Radar Cross-Section (RCS). When falling back to the uncalibrated Pinhole formula (`[CAM]` mode), Project 2 had an average distance error of $5.00\text{ m}$.
 2. **Fixed bumper-to-center offset ($+1.30\text{ m}$) without 3D vehicle orientation ($\theta_{\text{yaw}}$):** Adding a constant $+1.30\text{ m}$ offset to Radar points fails when vehicles turn sideways at intersections. Furthermore, objects could only be drawn as circular dots in the Bird's-Eye View (BEV) map because their 3D dimensions and rotation angle were unknown.
 3. **Static Kalman measurement noise matrices:** The Kalman Filter used fixed measurement variances ($R_{\text{radar}} = 0.05$, $R_{\text{cam}} = 2.20$) regardless of lighting conditions (day, night, heavy rain), target distance, or Radar signal quality.
@@ -54,6 +56,8 @@ We implement and compare three progressive learning architectures using **5-Fold
 └── README.md                    # Project documentation
 ```
 
+> **Note on Heavy Files (Videos, Dataset & Weights):** Rendered 3D BEV demo videos, high-resolution plots, and project materials are available on [OneDrive](https://univpr-my.sharepoint.com/:f:/g/personal/arashpreet_singh_studenti_unipr_it/IgAP8D1HTET2QIrnTexATodmAd8hQxoXYwRSKbClBzFQRrE?e=RjOth6).
+
 ---
 
 ## 4. Installation & Setup
@@ -63,13 +67,11 @@ We implement and compare three progressive learning architectures using **5-Fold
    python -m venv venv
    .\venv\Scripts\Activate.ps1
    ```
-
 2. **Install the required packages (with CUDA 12.4 support for PyTorch):**
    ```powershell
    pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cu124
    ```
-
-3. **Dataset placement:**
+3. **Dataset placement:**  
    Ensure the `nuScenes v1.0-mini` dataset is located inside `data/v1.0-mini/` and `yolov8m.pt` is in the root folder `3d_perception_project3/`.
 
 ---
@@ -111,8 +113,6 @@ python demo_video_3d_bev.py
 | **Bike/Moto** | 19 | 4 | 15 | $78.9\%$ |
 | **TOTAL** | **1,373** | **643 ($46.8\%$)** | **730 ($53.2\%$)** | **$53.2\%$** |
 
----
-
 ### B. 3D Distance RMSE Comparison: Project 1 vs. Project 2 vs. Project 3
 
 | Class | N | Proj 1 (Cam Only) | Proj 2 (All Tracks) | Proj 2 (Radar Lock) | Proj 3 `v1` (Early MLP) | Proj 3 `v2` (Co-Learning) | Proj 3 `v3` (All Tracks) | Proj 3 `v3` (Radar Lock) | Proj 3 `v3` (No-Radar) |
@@ -124,6 +124,7 @@ python demo_video_3d_bev.py
 | **TOTAL** | **1,373** | **$6.92\text{ m}$** | **$3.94\text{ m}$** | **$2.19\text{ m}$** | **$2.70\text{ m}$** | **$2.24\text{ m}$** | **$2.07\text{ m}$ ($-47.5\%$)** | **$1.74\text{ m}$ ($-74.9\%$)** | **$2.33\text{ m}$ ($-53.4\%$)** |
 
 ### C. 3D Oriented Bounding Box & Judge Performance
+
 * **3D Dimension Estimation Error (MAE):** Width $W = 0.14\text{ m}$ | Length $L = 0.36\text{ m}$ | Height $H = 0.15\text{ m}$
 * **3D Orientation Angle Error ($\theta_{\text{yaw}}$ MAE):** $2.4^\circ$ ($0.04\text{ rad}$)
 * **Dynamic Judge Trust Allocation:** Assigns $80.0\%$ to $87.1\%$ trust to the Radar+RCS Expert at close/medium ranges ($0\text{--}35\text{ m}$) and increases Visual Expert trust to $28.6\%$ at long range ($35\text{--}50\text{ m}$).
