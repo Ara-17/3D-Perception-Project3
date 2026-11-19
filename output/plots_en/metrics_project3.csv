@@ -1,0 +1,5 @@
+Class,Samples,With_Radar,No_Radar,RMSE_Proj1_Cam,RMSE_Proj2_All,RMSE_Proj2_RadLock,RMSE_Proj3_v1_Early,RMSE_Proj3_v2_CoLearn,RMSE_Proj3_v3_All,RMSE_Proj3_v3_RadLock,RMSE_Proj3_v3_NoRadar
+Car,933,505,428,6.96,3.80,1.71,2.66,2.10,1.94,1.24,2.52
+Truck/Bus,137,93,44,8.20,4.18,3.60,4.13,3.37,3.10,3.21,2.87
+Person,284,41,243,6.19,4.16,2.83,1.92,2.04,1.91,2.20,1.86
+Bike/Moto,19,4,15,5.23,5.49,3.92,1.31,1.43,1.09,1.23,1.05
