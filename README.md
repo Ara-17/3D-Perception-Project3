@@ -23,7 +23,7 @@ To solve these issues without overfitting on `nuScenes v1.0-mini` ($1,373$ match
 
 ## 2. Architecture & Fusion Paradigms Evaluated
 
-We implement and compare three progressive learning architectures using **5-Fold Stratified Cross-Validation**:
+I implemented and compared three progressive learning architectures using **5-Fold Stratified Cross-Validation**:
 
 * **Version 1 (`v1` — Naive Early Fusion MLP):** Directly concatenates the $18$ visual features and $12$ Radar features ($[x_{\text{vis}} \parallel x_{\text{rad}}]$) into a single monolithic MLP. Because $53.2\%$ of samples have zero-padded Radar inputs, it suffers from modality imbalance.
 * **Version 2 (`v2` — Coordinated Space & Parallel Co-Learning with VICReg):** Decouples perception into two specialized micro-experts mapped into a 32-dimensional Coordinated Latent Space:
